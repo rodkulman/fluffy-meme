@@ -1,0 +1,15 @@
+﻿<Window x:Class="BrowserChoice.MainWindow" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:local="clr-namespace:BrowserChoice" mc:Ignorable="d" Title="Browser Choice Settings" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="1" Margin="15" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Set Protocol" Padding="3" Click="protocol_click" />
+    </Grid>
+</Window>
