@@ -22,12 +22,7 @@ namespace BrowserChoice
     {
         public MainWindow()
         {
-            InitializeComponent();
-        }
-
-        public void protocol_click(object sender, RoutedEventArgs e)
-        {
-            RegistryHelper.RegisterApplication();
+            InitializeComponent();            
         }
     }
 }

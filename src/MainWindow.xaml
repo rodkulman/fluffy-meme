@@ -3,13 +3,48 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:local="clr-namespace:BrowserChoice" mc:Ignorable="d" Title="Browser Choice Settings" Height="450" Width="800">
+    xmlns:local="clr-namespace:BrowserChoice" mc:Ignorable="d" Title="{Binding Title}" Height="450" Width="800"
+    x:Name="mainWindow">
+    <Window.DataContext>
+        <local:MainViewModel />
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Grid.Column="0" Margin="15" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="New Rule" Padding="3" Command="{Binding NewRuleCommand}" />        
+        <ListView Margin="5" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Rules}" HorizontalContentAlignment="Stretch">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
 
-        <Button Grid.Row="1" Margin="15" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Set Protocol" Padding="3" Click="protocol_click" />
+                        <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding IsDefault}" Content="Default" Margin="3" />
+                        <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Content="Delete Rule" Command="{Binding DataContext.DeleteRuleCommand, ElementName=mainWindow}" CommandParameter="{Binding}" Margin="3" Padding="3" />
+
+                        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Domain}" Margin="3" />
+                        <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding FilePath}" Margin="3" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Arguments}" Margin="3" />                        
+                    </Grid>                    
+                </DataTemplate>                            
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Grid.Row="2" Grid.Column="0" Margin="15" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Set Protocol" Padding="3" Command="{Binding RegisterCommand}" />
+        <Button Grid.Row="2" Grid.Column="1" Margin="15" VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Save and Close" Padding="3" Command="{Binding SaveRulesCommand}" />
     </Grid>
 </Window>

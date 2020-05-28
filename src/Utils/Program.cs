@@ -18,8 +18,7 @@ namespace BrowserChoice
             }
             else if (args.Length == 1 && IsUri(args[0], out Uri uri))
             {
-                var rules = new Rules();
-                var rule = rules.GetRule(uri);
+                var rule = Rules.Instance.GetRuleForUri(uri);
 
                 LaunchRule(rule, uri);
             }
@@ -29,7 +28,11 @@ namespace BrowserChoice
         {
             using (var p = new Process())
             {
-                p.StartInfo.Arguments = uri.ToString();
+                if (!string.IsNullOrWhiteSpace(rule.Arguments))
+                {
+                    p.StartInfo.Arguments = rule.Arguments + " ";
+                }
+                p.StartInfo.Arguments += uri.ToString();
                 p.StartInfo.FileName = rule.FilePath;
                 p.StartInfo.UseShellExecute = true;
 
